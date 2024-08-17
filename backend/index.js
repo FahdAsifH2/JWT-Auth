@@ -2,18 +2,19 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
-const router = require('./routes/routes')
+const router = require('./routes/routes'); // Use 'router' to match the import
 const app = express();
-
-app.use("/api",routes)
 
 app.use(cors({
     credentials: true,
-    origin: ['https://localhost:4200']
+    origin: ['http://localhost:4200'] // Use 'http' if you're running Angular locally
 }));
 
 app.use(cookieParser());
 app.use(express.json());
+
+app.use("/api", router); // Use 'router' consistently
+// app.use(router); // Commented out as it's redundant if you're using "/api" prefix
 
 // Function to connect to MongoDB
 const connectToDatabase = async () => {
